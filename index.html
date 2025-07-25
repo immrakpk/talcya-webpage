@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TALCYA Games - Where Dreams Become Reality</title>
@@ -499,9 +499,9 @@
                     // Animate counters when about section is visible
                     if (entry.target.id === 'about') {
                         setTimeout(() => {
-                            animateCounter(document.getElementById('games-count'), 50);
-                            animateCounter(document.getElementById('players-count'), 10000000);
-                            animateCounter(document.getElementById('awards-count'), 25);
+                            const gc = document.getElementById('games-count'); if(gc) animateCounter(gc, 50);
+                            const pc = document.getElementById('players-count'); if(pc) animateCounter(pc, 10000000);
+                            const ac = document.getElementById('awards-count'); if(ac) animateCounter(ac, 25);
                         }, 500);
                     }
                 }
