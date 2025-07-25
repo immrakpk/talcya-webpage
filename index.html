@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALCYA Games - Where Dreams Become Reality</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+        
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .orbitron {
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .game-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-20px) rotateX(5deg);
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .game-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            position: relative;
+        }
+        
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5), 0 0 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        .slide-in {
+            animation: slideIn 1s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pulse-btn {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+        
+        .parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        
+        .typing::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-900/90 backdrop-blur-sm border-b border-gray-700">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="orbitron text-2xl font-bold gradient-text">TALCYA GAMES</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-blue-400 transition-colors">Home</a>
+                    <a href="#games" class="hover:text-blue-400 transition-colors">Games</a>
+                    <a href="#about" class="hover:text-blue-400 transition-colors">About</a>
+                    <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
+                </div>
+                <button class="md:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="particles-container absolute inset-0"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="orbitron text-6xl md:text-8xl font-black mb-6 slide-in">
+                <span class="gradient-text typing" id="typing-text">TALCYA GAMES</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 slide-in opacity-80 max-w-3xl mx-auto">
+                Creating fun and enjoyable games that bring a little more joy and entertainment to players everywhere.
+            </p>
+            <button class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 neon-glow pulse-btn slide-in">
+                Explore Our Universe
+            </button>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 w-4 h-4 bg-blue-400 rounded-full opacity-60 animate-bounce"></div>
+        <div class="absolute bottom-32 right-20 w-6 h-6 bg-purple-400 rounded-full opacity-60 animate-bounce" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-1/4 w-2 h-2 bg-green-400 rounded-full opacity-60 animate-bounce" style="animation-delay: 2s;"></div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="orbitron text-5xl font-bold text-center mb-16 gradient-text">Our Games</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Game 1 -->
+                <div class="game-card bg-gray-800 rounded-xl overflow-hidden shadow-2xl relative group">
+                    <div class="h-64 bg-gradient-to-br from-red-500 to-orange-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="orbitron text-2xl font-bold text-white">Target Trail</h3>
+                            <p class="text-gray-200 text-sm">Casual / Arcade</p>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                            HOT
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-300 mb-4">Test your aiming skills in this fun and addictive target-throwing game! Toss the ball and land it on various objects to earn points. Aim carefully, score high, and challenge yourself to beat your best score.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-blue-400 font-semibold">Coming Soon.</span>
+                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">.. . .</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="game-card bg-gray-800 rounded-xl overflow-hidden shadow-2xl relative group">
+                    <div class="h-64 bg-gradient-to-br from-green-500 to-teal-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="orbitron text-2xl font-bold text-white">Mystic Realms</h3>
+                            <p class="text-gray-200 text-sm">Fantasy Adventure</p>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-green-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                            NEW
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-300 mb-4">Embark on an epic fantasy journey through mystical lands. Cast powerful spells and forge legendary alliances.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-400 font-semibold">Coming Soon</span>
+                            <button class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors">.. . .</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="game-card bg-gray-800 rounded-xl overflow-hidden shadow-2xl relative group">
+                    <div class="h-64 bg-gradient-to-br from-purple-500 to-pink-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="orbitron text-2xl font-bold text-white">Stellar Conquest</h3>
+                            <p class="text-gray-200 text-sm">Space Strategy</p>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-purple-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                            SOON
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-300 mb-4">Command fleets across the galaxy in this epic space strategy game. Build empires and conquer the stars.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-purple-400 font-semibold">Coming Soon</span>
+                            <button class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors">.. . .</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 4 -->
+                <div class="game-card bg-gray-800 rounded-xl overflow-hidden shadow-2xl relative group">
+                    <div class="h-64 bg-gradient-to-br from-yellow-500 to-red-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="orbitron text-2xl font-bold text-white">Neon Racer</h3>
+                            <p class="text-gray-200 text-sm">Racing</p>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-2 py-1 rounded text-xs font-semibold">
+                            TRENDING
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-300 mb-4">Race through neon-lit streets in this high-octane racing experience. Customize your ride and dominate the tracks.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-yellow-400 font-semibold">Coming Soon</span>
+                            <button class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg transition-colors">.. . .</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 5 -->
+                <div class="game-card bg-gray-800 rounded-xl overflow-hidden shadow-2xl relative group">
+                    <div class="h-64 bg-gradient-to-br from-indigo-500 to-purple-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="orbitron text-2xl font-bold text-white">Mind Maze</h3>
+                            <p class="text-gray-200 text-sm">Puzzle Adventure</p>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-indigo-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                            AWARD
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-300 mb-4">Challenge your mind with intricate puzzles and mind-bending mechanics. Every level is a new dimension of thinking.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-indigo-400 font-semibold">Coming Soon</span>
+                            <button class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition-colors">.. . .</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game 6 -->
+                <div class="game-card bg-gray-800 rounded-xl overflow-hidden shadow-2xl relative group">
+                    <div class="h-64 bg-gradient-to-br from-teal-500 to-blue-600 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="orbitron text-2xl font-bold text-white">Ocean Depths</h3>
+                            <p class="text-gray-200 text-sm">Underwater Exploration</p>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-teal-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                            BETA
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-300 mb-4">Explore the mysterious depths of alien oceans. Discover ancient secrets and survive in the abyss.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-teal-400 font-semibold">Coming Soon</span>
+                            <button class="bg-teal-600 hover:bg-teal-700 px-4 py-2 rounded-lg transition-colors">.. . .</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gradient-to-b from-gray-800 to-gray-900 relative">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="orbitron text-5xl font-bold mb-8 gradient-text">About TALCYA Games</h2>
+                    <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+                        Founded in 2023, TALCYA LLC We are passionate indie developers dedicated to creating the most fun and engaging games possible. Our goal is to craft simple yet exciting experiences that bring joy and challenge to players of all ages. Thank you for supporting our journey as we strive to make the best games out there!
+                    </p>
+                    <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                        We are a small indie team focused on creating fun and engaging games that bring simple joy and entertainment to players. Our goal is to develop games that are easy to enjoy and offer a satisfying experience for everyone.
+                    </p>
+                    <!-- <div class="grid grid-cols-3 gap-4 text-center">
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <div class="orbitron text-3xl font-bold text-blue-400 mb-2" id="games-count">50+</div>
+                            <div class="text-gray-300">Games Released</div>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <div class="orbitron text-3xl font-bold text-green-400 mb-2" id="players-count">10M+</div>
+                            <div class="text-gray-300">Players Worldwide</div>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <div class="orbitron text-3xl font-bold text-purple-400 mb-2" id="awards-count">25+</div>
+                            <div class="text-gray-300">Industry Awards</div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="relative">
+                    <div class="w-full h-96 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl relative overflow-hidden shadow-2xl">
+                        <div class="absolute inset-0 bg-black/20"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="orbitron text-4xl font-bold mb-4">Innovation</div>
+                                <div class="text-xl">Meets Creativity</div>
+                            </div>
+                        </div>
+                        <!-- Animated circles -->
+                        <div class="absolute top-10 left-10 w-20 h-20 border-2 border-white/30 rounded-full animate-spin"></div>
+                        <div class="absolute bottom-10 right-10 w-16 h-16 border-2 border-white/30 rounded-full animate-ping"></div>
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-white/20 rounded-full animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-t from-gray-900 to-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="orbitron text-5xl font-bold mb-8 gradient-text">Join Our Universe</h2>
+            <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                Ready to be part of the TALCYA Games community? Follow us for the latest updates, behind-the-scenes content, and exclusive previews.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition-colors">
+                    <div class="text-blue-400 text-4xl mb-4">🎮</div>
+                    <h3 class="orbitron text-xl font-bold mb-2">Game Development</h3>
+                    <p class="text-gray-400">Cutting-edge technology meets creative storytelling</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition-colors">
+                    <div class="text-green-400 text-4xl mb-4">🌟</div>
+                    <h3 class="orbitron text-xl font-bold mb-2">Community First</h3>
+                    <p class="text-gray-400">Building games with our players at the heart</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl hover:bg-gray-700 transition-colors">
+                    <div class="text-purple-400 text-4xl mb-4">🚀</div>
+                    <h3 class="orbitron text-xl font-bold mb-2">Innovation</h3>
+                    <p class="text-gray-400">Pushing boundaries in interactive entertainment</p>
+                </div>
+            </div>
+            
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="bg-blue-600 hover:bg-blue-700 p-3 rounded-full transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                    </svg>
+                </a>
+                <a href="#" class="bg-indigo-600 hover:bg-indigo-700 p-3 rounded-full transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                    </svg>
+                </a>
+                <a href="#" class="bg-purple-600 hover:bg-purple-700 p-3 rounded-full transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.74-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
+                    </svg>
+                </a>
+                <a href="#" class="bg-red-600 hover:bg-red-700 p-3 rounded-full transition-colors">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <button class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-8 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 neon-glow">
+                Get In Touch
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="orbitron text-2xl font-bold gradient-text mb-4">TALCYA GAMES</div>
+            <p class="text-gray-400 mb-4">© 2025 TALCYA Games. All rights reserved. Crafting the future of gaming.</p>
+            <div class="flex justify-center space-x-6 text-sm text-gray-500">
+                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-white transition-colors">Careers</a>
+                <a href="#" class="hover:text-white transition-colors">Press Kit</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Particle system
+        function createParticles() {
+            const container = document.querySelector('.particles-container');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = `hsl(${Math.random() * 60 + 200}, 70%, 60%)`;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = Math.random() * 4 + 4 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+            
+            parallaxElements.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Animate counters
+        function animateCounter(element, target) {
+            const increment = target / 100;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                
+                if (target >= 1000000) {
+                    element.textContent = (current / 1000000).toFixed(1) + 'M+';
+                } else if (target >= 1000) {
+                    element.textContent = Math.floor(current / 1000) + 'K+';
+                } else {
+                    element.textContent = Math.floor(current) + '+';
+                }
+            }, 50);
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('slide-in');
+                    
+                    // Animate counters when about section is visible
+                    if (entry.target.id === 'about') {
+                        setTimeout(() => {
+                            animateCounter(document.getElementById('games-count'), 50);
+                            animateCounter(document.getElementById('players-count'), 10000000);
+                            animateCounter(document.getElementById('awards-count'), 25);
+                        }, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.game-card, #about').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Typing effect for hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            element.classList.remove('typing');
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    element.classList.add('typing');
+                }
+            }
+            type();
+        }
+
+        // Game card interactions
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-20px) rotateX(5deg) scale(1.02)';
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotateX(0deg) scale(1)';
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Add floating animation to navigation
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
+
+        // Add click effects to buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.3);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: ${size}px;
+                    height: ${size}px;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Start typing effect after a short delay
+            setTimeout(() => {
+                const heroTitle = document.getElementById('typing-text');
+                if (heroTitle) {
+                    typeWriter(heroTitle, 'TALCYA GAMES', 150);
+                }
+            }, 1000);
+        });
+
+        // Add mouse movement parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            document.querySelectorAll('.game-card').forEach((card, index) => {
+                const intensity = (index % 2 === 0) ? 10 : -10;
+                card.style.transform += ` translate(${mouseX * intensity}px, ${mouseY * intensity}px)`;
+            });
+        });
+
+        // Add scroll-triggered animations for game cards
+        const gameCards = document.querySelectorAll('.game-card');
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        gameCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            cardObserver.observe(card);
+        });
+    </script>
+</body>
+</html>
